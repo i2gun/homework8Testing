@@ -1,26 +1,33 @@
-import command_fucntions
+# Урок 8. Работа с файлами
+# Основной функционал - просмотр, сохранение, добавление (импорт), поиск, удаление, изменениею
+
+import json
+from command_functions import add, save, show, search, change, delete
 
 loopGoOn = True
-phonebook = command_fucntions.load()
-commands = {"add": command_fucntions.add, "save": command_fucntions.save,
-            "show": command_fucntions.show, "search": command_fucntions.search,
-            "change": command_fucntions.change, "del": command_fucntions.delete
-            }
+phonebook = {"Дядя Ваня": {'phones': ['84951116565', '89651115544'], 'birthday': "05.05.1990", 'email': "12@ya.ru"},
+             "Дядя Вася": {'phones': ['84994445151']}}
+try:
+    with open("contacts.json", "r", encoding="utf-8") as fh:
+        phonebook = json.loads(fh.read())
+except Exception:
+    print("Загрузка тестового телефонного справочника")
+
+
+def finish(record):
+    global loopGoOn
+    loopGoOn = False
+    return record
+
+
+commands = {"add": add, "save": save, "show": show, "find": search,
+            "change": change, "del": delete, "quit": finish, "exit": finish}
 while loopGoOn:
-    print("-----------------------")
-    print("Вам доступны следующие команды: add, save, show, search, change, del, quit")
-    if command := input("Введите новую команду: ") == "quit":
-        break
-    print("-----------------------")
+    print("    |-----------------------")
+    print("    |  Вам доступны следующие команды: add, save, show, find, change, del, quit")
+    command = input("    |  Введите новую команду: ").strip()
+    print("    |-----------------------")
     try:
         phonebook = commands[command](phonebook)
-    except:
+    except Exception:
         print("Неверная комманда")
-
-# Урок 8. Работа с файлами
-#
-# Задача 38: Дополнить телефонный справочник возможностью изменения и удаления данных.
-# Пользователь также может ввести имя или фамилию, и Вы должны реализовать функционал
-# для изменения и удаления данных
-#
-# Формат сдачи: ссылка на свой репозиторий в гитхаб.
