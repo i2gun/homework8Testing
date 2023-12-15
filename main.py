@@ -1,3 +1,6 @@
+# Урок 8. Работа с файлами
+# Основной функционал - просмотр, сохранение, добавление (импорт), поиск, удаление, изменениею
+
 import json
 from command_functions import add, save, show, search, change, delete
 
@@ -28,6 +31,3 @@ while loopGoOn:
         phonebook = commands[command](phonebook)
     except Exception:
         print("Неверная комманда")
-
-# Урок 8. Работа с файлами
-# Основной функционал - просмотр, сохранение, добавление (импорт), поиск, удаление, изменениею
