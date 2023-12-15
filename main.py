@@ -1,5 +1,5 @@
 import json
-import command_fucntions
+from command_functions import add, save, show, search, change, delete
 
 loopGoOn = True
 
@@ -17,17 +17,17 @@ try:
 except:
     print("Загрузка тестового телефонного справочника")
 
-commands = {"add": command_fucntions.add(phonebook), "save": command_fucntions.save(phonebook),
-            "show": command_fucntions.show(phonebook), "find": command_fucntions.search(phonebook),
-            "change": command_fucntions.change(phonebook), "del": command_fucntions.delete(phonebook),
-            "quit": finish(), "exit": finish()}
+commands = {"add": add, "save": save,
+            "show": show, "find": search,
+            "change": change, "del": delete,
+            "quit": finish, "exit": finish}
 while loopGoOn:
-    print("-----------------------")
-    print("Вам доступны следующие команды: ", commands.keys())
-    command = input("Введите новую команду: ")
-    print("-----------------------")
+    print("    |-----------------------")
+    print("    |  Вам доступны следующие команды: ", commands.keys())
+    command = input("    |  Введите новую команду: ")
+    print("    |-----------------------")
     try:
-        commands[command]()
+        phonebook = commands[command](phonebook)
     except Exception:
         print("Неверная комманда")
 
