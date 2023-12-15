@@ -2,29 +2,27 @@ import json
 from command_functions import add, save, show, search, change, delete
 
 loopGoOn = True
-
-
-def finish():
-    global loopGoOn
-    loopGoOn = False
-
-
-phonebook = {"Дядя Ваня": {'phones': [8311654654, 89654515], 'birthday': "05.05.1990", 'email': "12@ya.ru"},
-             "Дядя Вася": {'phones': [54654541]}}
+phonebook = {"Дядя Ваня": {'phones': ['84951116565', '89651115544'], 'birthday': "05.05.1990", 'email': "12@ya.ru"},
+             "Дядя Вася": {'phones': ['84994445151']}}
 try:
     with open("contacts.json", "r", encoding="utf-8") as fh:
         phonebook = json.loads(fh.read())
-except:
+except Exception:
     print("Загрузка тестового телефонного справочника")
 
-commands = {"add": add, "save": save,
-            "show": show, "find": search,
-            "change": change, "del": delete,
-            "quit": finish, "exit": finish}
+
+def finish(record):
+    global loopGoOn
+    loopGoOn = False
+    return record
+
+
+commands = {"add": add, "save": save, "show": show, "find": search,
+            "change": change, "del": delete, "quit": finish, "exit": finish}
 while loopGoOn:
     print("    |-----------------------")
-    print("    |  Вам доступны следующие команды: ", commands.keys())
-    command = input("    |  Введите новую команду: ")
+    print("    |  Вам доступны следующие команды: add, save, show, find, change, del, quit")
+    command = input("    |  Введите новую команду: ").strip()
     print("    |-----------------------")
     try:
         phonebook = commands[command](phonebook)
@@ -32,6 +30,4 @@ while loopGoOn:
         print("Неверная комманда")
 
 # Урок 8. Работа с файлами
-# основной функционал - просмотр, сохранение, импорт, поиск, удаление, изменение данных.
-#
-# Формат сдачи: ссылка на свой репозиторий в гитхаб.
+# Основной функционал - просмотр, сохранение, добавление (импорт), поиск, удаление, изменениею
